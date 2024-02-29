@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Background Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            transition: background 0.5s ease-in-out;
+        }
+
+        #gradient-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            margin: 10px 0;
+        }
+
+        #preview {
+            width: 300px;
+            height: 150px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gradient-options">
+        <label for="startColor">Color 1:</label>
+        <input type="color" id="startColor" value="#4facfe">
+
+        <label for="endColor">Color 2:</label>
+        <input type="color" id="endColor" value="#00f2fe">
+
+        <label for="gradientType">Gradient Type:</label>
+        <select id="gradientType">
+            <option value="linear">Linear Gradient</option>
+            <option value="radial">Radial Gradient</option>
+        </select>
+
+        <div id="preview"></div>
+    </div>
+
+    <script>
+        // Function to update background gradient based on user input
+        function updateGradient() {
+            const startColor = document.getElementById('startColor').value;
+            const endColor = document.getElementById('endColor').value;
+            const gradientType = document.getElementById('gradientType').value;
+
+            const gradient = gradientType === 'linear'
+                ? `linear-gradient(to right, ${startColor}, ${endColor})`
+                : `radial-gradient(circle, ${startColor}, ${endColor})`;
+
+            document.body.style.background = gradient;
+        }
+
+        // Function to update background preview
+        function updatePreview() {
+            const startColor = document.getElementById('startColor').value;
+            const endColor = document.getElementById('endColor').value;
+
+            const preview = document.getElementById('preview');
+            preview.style.background = `linear-gradient(to right, ${startColor}, ${endColor})`;
+        }
+
+        // Event listeners to update the background on input change
+        document.getElementById('startColor').addEventListener('input', function () {
+            updateGradient();
+            updatePreview();
+        });
+
+        document.getElementById('endColor').addEventListener('input', function () {
+            updateGradient();
+            updatePreview();
+        });
+
+        document.getElementById('gradientType').addEventListener('change', function () {
+            updateGradient();
+            updatePreview();
+        });
+
+        // Initial background and preview update
+        updateGradient();
+        updatePreview();
+    </script>
+</body>
+</html>
